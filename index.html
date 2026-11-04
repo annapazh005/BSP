@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Web-Elemente Showcase</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#312e81',
+                        },
+                        cream: {
+                            50: '#FDFBF7',
+                            100: '#FAF6F0',
+                            200: '#F4ECE1',
+                            300: '#EAE0D0',
+                        },
+                        werkstatt: {
+                            orange: '#E27D42',
+                            dark: '#1C2434',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Global Scrollbar Customization */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.05);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(99, 102, 241, 0.3);
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(99, 102, 241, 0.6);
+        }
+
+        /* Glassmorphism utility classes */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        .dark .glass-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Interactive slide track */
+        .interactive-track {
+            will-change: transform;
+            transition: transform 0.15s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* Ambient light follow effect for Element 2 */
+        .light-follow {
+            pointer-events: none;
+            background: radial-gradient(circle 250px at var(--x, 50%) var(--y, 50%), rgba(226, 125, 66, 0.15), transparent 80%);
+            transition: background 0.05s ease;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans overflow-x-hidden min-h-screen flex flex-col">
+
+    <!-- DASHBOARD MASTER HEADER -->
+    <header class="w-full bg-slate-950/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-lg bg-gradient-to-tr from-brand-500 to-indigo-500 flex items-center justify-center text-white font-extrabold text-sm shadow-md">
+                    GH
+                </div>
+                <div>
+                    <h1 class="font-bold text-base leading-none tracking-tight">GitHub Showcase</h1>
+                    <span class="text-[11px] text-slate-400">4 Web-Elemente für unsere Webseite</span>
+                </div>
+            </div>
+
+            <!-- Dashboard Selector Tabs -->
+            <nav class="flex flex-wrap justify-center bg-slate-900 p-1 rounded-xl border border-slate-800">
+                <button onclick="switchTab('tab-team')" id="btn-tab-team" class="tab-btn px-4 py-2 rounded-lg text-xs font-semibold transition-all duration-200 bg-brand-600 text-white shadow-sm">
+                    Teamseite
+                </button>
+                <button onclick="switchTab('tab-werkstatt')" id="btn-tab-werkstatt" class="tab-btn px-4 py-2 rounded-lg text-xs font-semibold transition-all duration-200 text-slate-400 hover:text-white">
+                    2. Pill-Menü
+                </button>
+                <button onclick="switchTab('tab-placeholder3')" id="btn-tab-placeholder3" class="tab-btn px-4 py-2 rounded-lg text-xs font-semibold transition-all duration-200 text-slate-400 hover:text-white">
+                    3. Platzhalter
+                </button>
+                <button onclick="switchTab('tab-placeholder4')" id="btn-tab-placeholder4" class="tab-btn px-4 py-2 rounded-lg text-xs font-semibold transition-all duration-200 text-slate-400 hover:text-white">
+                    4. Platzhalter
+                </button>
+            </nav>
+
+        </div>
+    </header>
+
+    <!-- CONTENT WRAPPER -->
+    <main class="flex-grow w-full relative">
+
+        <!-- ======================================================= -->
+        <!-- ELEMENT 1: NEXTLEVEL CREATIVE TEAM (Full Component) -->
+        <!-- ======================================================= -->
+        <section id="tab-team" class="tab-content block min-h-[calc(100vh-73px)] relative bg-white text-slate-900 flex flex-col justify-between py-6">
+            
+            <!-- Subtle backdrop blobs adapted for light background -->
+            <div class="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
+                <div class="absolute top-[10%] left-[-10%] w-[400px] h-[400px] rounded-full bg-indigo-400/10 blur-[120px]"></div>
+                <div class="absolute bottom-[20%] right-[-10%] w-[500px] h-[500px] rounded-full bg-violet-400/10 blur-[150px]"></div>
+            </div>
+
+            <!-- Showcase Info Header -->
+            <div class="max-w-7xl mx-auto w-full px-6 pt-4 pb-2">
+                <div class="flex justify-between items-end border-b border-slate-200 pb-6 mb-6">
+                    <div>
+                        <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest bg-indigo-50 px-3 py-1 rounded-full border border-indigo-100">Element 1: Team Galerie</span>
+                        <h2 class="text-3xl md:text-5xl font-black mt-3 tracking-tight">Unser <span class="bg-gradient-to-r from-brand-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">Kreativteam</span></h2>
+                        <p class="text-slate-600 text-sm mt-2 max-w-xl font-light">
+                            Bewege den Mauszeiger nach links und rechts über das Feld unten, um flüssig durch die Galerie zu gleiten.
+                        </p>
+                    </div>
+                    <!-- Interactive Filter updated for light theme -->
+                    <div class="hidden md:flex gap-2">
+                        <button class="filter-btn active px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-300 bg-brand-600 text-white" data-filter="all">Alle</button>
+                        <button class="filter-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-300 text-slate-600 hover:text-slate-900" data-filter="leadership">Leadership</button>
+                        <button class="filter-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-300 text-slate-600 hover:text-slate-900" data-filter="design">Design</button>
+                        <button class="filter-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-300 text-slate-600 hover:text-slate-900" data-filter="dev">Development</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Horizontal Sliding Track Container -->
+            <div class="relative w-full overflow-hidden py-4 select-none" id="viewportContainer">
+                <div class="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white to-transparent pointer-events-none z-20"></div>
+                <div class="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white to-transparent pointer-events-none z-20"></div>
+
+                <div class="flex gap-6 px-6 md:px-20 transition-transform duration-300 ease-out interactive-track items-center min-h-[460px]" id="teamTrack">
+                    <!-- Loaded dynamically via JS -->
+                </div>
+            </div>
+
+            <!-- Controls Panel -->
+            <div class="max-w-7xl mx-auto w-full px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+                <div class="flex items-center gap-3 text-xs font-medium text-slate-600">
+                    <span class="flex items-center gap-1.5 text-brand-600">
+                        <i class="fa-solid fa-wand-magic-sparkles animate-pulse"></i>
+                        Interaktiver Maus-Gleit-Modus aktiv
+                    </span>
+                    <span class="w-1 h-1 rounded-full bg-slate-200"></span>
+                    <span id="cardCount">8 Köpfe geladen</span>
+                </div>
+
+                <div class="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end">
+                    <div class="w-32 sm:w-48 h-1 bg-slate-200 rounded-full overflow-hidden relative">
+                        <div id="scrollProgressBar" class="absolute left-0 top-0 h-full w-0 bg-gradient-to-r from-brand-500 to-violet-500 rounded-full transition-all duration-100"></div>
+                    </div>
+                    <div class="flex gap-1.5">
+                        <button id="slidePrevBtn" class="w-9 h-9 rounded-lg bg-white border border-slate-200 flex items-center justify-center hover:bg-slate-50 text-slate-700 transition-colors shadow-sm">
+                            <i class="fa-solid fa-arrow-left text-xs"></i>
+                        </button>
+                        <button id="slideNextBtn" class="w-9 h-9 rounded-lg bg-white border border-slate-200 flex items-center justify-center hover:bg-slate-50 text-slate-700 transition-colors shadow-sm">
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ======================================================= -->
+        <!-- ELEMENT 2: WERKSTATT MENU ONLY (Rest Blanko as requested) -->
+        <!-- ======================================================= -->
+        <section id="tab-werkstatt" class="tab-content hidden min-h-[calc(100vh-73px)] relative bg-cream-50 text-slate-800 flex flex-col justify-between overflow-hidden">
+            
+            <!-- Follow-Mouse Glow inside minimal playground -->
+            <div id="ambient-light" class="absolute inset-0 w-full h-full z-0 light-follow"></div>
+
+            <!-- Top Indicator Label -->
+            <div class="w-full text-center py-4 bg-cream-100 border-b border-cream-200/60 relative z-20">
+                <span class="text-xs font-bold text-werkstatt-orange uppercase tracking-widest bg-werkstatt-orange/10 px-3 py-1 rounded-full border border-werkstatt-orange/20">
+                    Element 2: WERKSTATT Pill-Menü-Komponente (Blanko-Sandbox)
+                </span>
+            </div>
+
+            <!-- THE MENU COMPONENT (Centered on blank canvas) -->
+            <div class="flex-grow flex items-center justify-center px-6 relative z-10 py-16">
+                
+                <!-- Pill menu Container mirroring the actual header navigation bar structure -->
+                <div class="w-full max-w-5xl bg-white/40 backdrop-blur-md p-8 rounded-3xl border border-cream-200/80 shadow-2xl shadow-slate-200/30 flex flex-col items-center justify-center gap-12">
+                    
+                    <!-- Component Header Mock -->
+                    <div class="w-full flex flex-col md:flex-row items-center justify-between gap-6 border-b border-cream-200/50 pb-6">
+                        
+                        <!-- Logo left -->
+                        <div class="flex items-center space-x-3">
+                            <div class="w-9 h-9 rounded-full bg-werkstatt-orange flex items-center justify-center text-white font-serif font-semibold text-base shadow-sm">
+                                W
+                            </div>
+                            <span class="font-serif text-lg font-bold tracking-widest text-slate-900">WERKSTATT</span>
+                        </div>
+
+                        <!-- Pill Navigation Bar -->
+                        <nav class="flex items-center bg-cream-100/90 backdrop-blur-md px-2 py-1.5 rounded-full border border-cream-200/80 shadow-lg shadow-slate-300/20 relative">
+                            <!-- Slider Indicator Background -->
+                            <div id="nav-indicator" class="absolute top-1.5 bottom-1.5 left-2 rounded-full bg-slate-900 transition-all duration-300 ease-out z-0"></div>
+
+                            <ul class="flex items-center space-x-0.5 relative z-10">
+                                <li>
+                                    <button onclick="setActiveNav(this)" class="nav-item px-4 py-1.5 rounded-full text-xs font-semibold text-white transition-colors duration-200" data-active="true">
+                                        Mission
+                                    </button>
+                                </li>
+                                <li>
+                                    <button onclick="setActiveNav(this)" class="nav-item px-4 py-1.5 rounded-full text-xs font-semibold text-slate-600 hover:text-slate-900 transition-colors duration-200">
+                                        Wie wir arbeiten
+                                    </button>
+                                </li>
+                                <li>
+                                    <button onclick="setActiveNav(this)" class="nav-item px-4 py-1.5 rounded-full text-xs font-semibold text-slate-600 hover:text-slate-900 transition-colors duration-200">
+                                        Projekte
+                                    </button>
+                                </li>
+                                <li>
+                                    <button onclick="setActiveNav(this)" class="nav-item px-4 py-1.5 rounded-full text-xs font-semibold text-slate-600 hover:text-slate-900 transition-colors duration-200">
+                                        Team
+                                    </button>
+                                </li>
+                                <li>
+                                    <button onclick="setActiveNav(this)" class="nav-item px-4 py-1.5 rounded-full text-xs font-semibold text-slate-600 hover:text-slate-900 transition-colors duration-200">
+                                        Karriere
+                                    </button>
+                                </li>
+                            </ul>
+
+                            <div class="h-4 w-[1px] bg-cream-300 mx-3"></div>
+
+                            <button class="bg-werkstatt-orange hover:bg-werkstatt-orange/90 text-white font-semibold text-xs px-4 py-1.5 rounded-full transition-all duration-300 shadow-sm shadow-werkstatt-orange/15 z-10">
+                                Kontakt
+                            </button>
+                        </nav>
+
+                        <!-- Action Right -->
+                        <div class="flex items-center space-x-3">
+                            <a href="#" class="w-9 h-9 rounded-full bg-cream-100 hover:bg-white flex items-center justify-center text-slate-700 hover:text-[#0077B5] transition-all duration-300 border border-cream-200 shadow-sm">
+                                <i data-lucide="linkedin" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <!-- Sandbox Workspace - deliberately left completely blank / clean visual presentation -->
+                    <div class="w-full h-48 border-2 border-dashed border-cream-300/60 rounded-2xl flex flex-col items-center justify-center text-center p-4">
+                        <p class="font-serif italic text-lg text-slate-400">Restlicher Seitenbereich absichtlich leer gelassen</p>
+                        <p class="text-xs text-slate-400 mt-1 max-w-md">Hier wird später der Content der zweiten Webseite eingebunden. Bewege deinen Mauszeiger über dieses Panel, um das warme Umgebungslicht zu testen.</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Footer for Element 2 Sandbox -->
+            <div class="w-full text-center py-4 border-t border-cream-200/50 relative z-20">
+                <p class="text-slate-400 text-[11px]">&copy; 2026 WERKSTATT. - Pill-Menü-Prototyp</p>
+            </div>
+
+        </section>
+
+        <!-- ======================================================= -->
+        <!-- ELEMENT 3: BLANKO PLATZHALTER -->
+        <!-- ======================================================= -->
+        <section id="tab-placeholder3" class="tab-content hidden min-h-[calc(100vh-73px)] relative bg-slate-950 text-slate-100 flex flex-col justify-between py-12">
+            
+            <div class="max-w-4xl mx-auto w-full px-6 flex-grow flex flex-col justify-center items-center text-center">
+                <div class="w-16 h-16 rounded-2xl bg-indigo-950/50 border border-indigo-900 flex items-center justify-center text-indigo-400 mb-6 text-xl">
+                    <i class="fa-solid fa-cubes-stacked"></i>
+                </div>
+                
+                <span class="text-xs font-bold text-indigo-400 uppercase tracking-widest bg-indigo-950/40 px-3 py-1 rounded-full border border-indigo-900/50">Element 3</span>
+                <h2 class="text-3xl md:text-5xl font-black mt-4">Platzhalter für drittes Modul</h2>
+                <p class="text-slate-400 text-sm md:text-base mt-4 max-w-lg leading-relaxed">
+                    Dieses Element ist noch nicht definiert. Du kannst den HTML-Code hier einfügen, um deine dritte kreative Webseiten-Idee oder ein interaktives Design zu präsentieren.
+                </p>
+                
+                <div class="mt-8 p-4 bg-slate-900 border border-slate-800 rounded-xl text-left font-mono text-[11px] text-indigo-300 w-full max-w-md">
+                    <span class="text-slate-500">&lt;!-- Code hier einfügen --&gt;</span><br>
+                    &lt;<span class="text-brand-500">section</span> class="<span class="text-emerald-400">my-element-3</span>"&gt;<br>
+                    &nbsp;&nbsp;&lt;<span class="text-brand-500">h1</span>&gt;Dein Element 3&lt;/<span class="text-brand-500">h1</span>&gt;<br>
+                    &lt;/<span class="text-brand-500">section</span>&gt;
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ======================================================= -->
+        <!-- ELEMENT 4: BLANKO PLATZHALTER -->
+        <!-- ======================================================= -->
+        <section id="tab-placeholder4" class="tab-content hidden min-h-[calc(100vh-73px)] relative bg-slate-950 text-slate-100 flex flex-col justify-between py-12">
+            
+            <div class="max-w-4xl mx-auto w-full px-6 flex-grow flex flex-col justify-center items-center text-center">
+                <div class="w-16 h-16 rounded-2xl bg-indigo-950/50 border border-indigo-900 flex items-center justify-center text-indigo-400 mb-6 text-xl">
+                    <i class="fa-solid fa-laptop-code"></i>
+                </div>
+                
+                <span class="text-xs font-bold text-indigo-400 uppercase tracking-widest bg-indigo-950/40 px-3 py-1 rounded-full border border-indigo-900/50">Element 4</span>
+                <h2 class="text-3xl md:text-5xl font-black mt-4">Platzhalter für viertes Modul</h2>
+                <p class="text-slate-400 text-sm md:text-base mt-4 max-w-lg leading-relaxed">
+                    Dieses Element ist noch nicht definiert. Du kannst den HTML-Code hier einfügen, um deine vierte kreative Webseiten-Idee oder ein interaktives Design zu präsentieren.
+                </p>
+                
+                <div class="mt-8 p-4 bg-slate-900 border border-slate-800 rounded-xl text-left font-mono text-[11px] text-indigo-300 w-full max-w-md">
+                    <span class="text-slate-500">&lt;!-- Code hier einfügen --&gt;</span><br>
+                    &lt;<span class="text-brand-500">section</span> class="<span class="text-emerald-400">my-element-4</span>"&gt;<br>
+                    &nbsp;&nbsp;&lt;<span class="text-brand-500">h1</span>&gt;Dein Element 4&lt;/<span class="text-brand-500">h1</span>&gt;<br>
+                    &lt;/<span class="text-brand-500">section</span>&gt;
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Detailed Spotlight Modal Drawer for Element 1 -->
+    <div id="detailModal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
+        <div id="modalContent" class="glass-card w-full max-w-2xl rounded-3xl overflow-hidden shadow-2xl transform scale-95 opacity-0 transition-all duration-300 flex flex-col md:flex-row text-slate-900 bg-white border border-slate-200">
+            
+            <!-- Avatar Sidebar block inside modal -->
+            <div class="md:w-2/5 p-6 flex flex-col justify-between items-center text-center border-b md:border-b-0 md:border-r border-slate-200 relative overflow-hidden" id="modalLeftPane">
+                <div class="absolute inset-0 -z-10 opacity-20 blur-2xl" id="modalBgGlow"></div>
+                <div class="relative w-28 h-28 rounded-2xl overflow-hidden shadow-lg border border-slate-200" id="modalAvatarBox">
+                    <!-- Dynamic SVG placement inside JS -->
+                </div>
+                <div class="mt-4">
+                    <h3 id="modalName" class="text-xl font-bold tracking-tight"></h3>
+                    <p id="modalRole" class="text-[10px] font-semibold text-brand-600 uppercase tracking-widest mt-1"></p>
+                </div>
+                <div class="flex gap-2.5 mt-4" id="modalSocials">
+                    <!-- filled by script -->
+                </div>
+            </div>
+
+            <!-- Text & stats Area inside modal -->
+            <div class="md:w-3/5 p-6 flex flex-col justify-between bg-white">
+                <div>
+                    <div class="flex justify-between items-start mb-4">
+                        <span id="modalDeptTag" class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-slate-50 border border-slate-200 text-slate-600"></span>
+                        <button id="closeModalBtn" class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-slate-200 transition-colors flex items-center justify-center text-slate-500 hover:text-slate-800">
+                            <i class="fa-solid fa-xmark text-xs"></i>
+                        </button>
+                    </div>
+                    <h4 class="text-[10px] uppercase tracking-wider font-extrabold text-slate-400">Über mich</h4>
+                    <p id="modalBio" class="text-slate-600 mt-2 text-xs leading-relaxed"></p>
+
+                    <!-- Expertises list slider -->
+                    <h4 class="text-[10px] uppercase tracking-wider font-extrabold text-slate-400 mt-5 mb-2.5">Expertise & Skills</h4>
+                    <div id="modalSkills" class="space-y-2">
+                        <!-- Dynamic Skills loaded inside JS -->
+                    </div>
+                </div>
+
+                <div class="mt-6 pt-4 border-t border-slate-200 flex justify-between items-center">
+                    <div class="flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                        <span class="text-[10px] text-slate-500" id="modalLocation">remote / Berlin</span>
+                    </div>
+                    <button class="px-3 py-1.5 bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white rounded-lg text-[10px] font-bold shadow-md shadow-brand-500/10 hover:shadow-brand-500/20 hover:scale-105 transition-all">
+                        Anfragen <i class="fa-solid fa-paper-plane ml-1"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CORE SYSTEM SCRIPT -->
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // =======================================================
+        // TAB-NAVIGATION MANAGEMENT
+        // =======================================================
+        function switchTab(tabId) {
+            // Hide all tabs
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => {
+                content.classList.add('hidden');
+                content.classList.remove('block');
+            });
+
+            // Show clicked tab
+            const target = document.getElementById(tabId);
+            target.classList.remove('hidden');
+            target.classList.add('block');
+
+            // Style buttons accordingly
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-brand-600', 'text-white', 'shadow-sm');
+                btn.classList.add('text-slate-400');
+            });
+
+            const activeBtn = document.getElementById(`btn-${tabId}`);
+            activeBtn.classList.remove('text-slate-400');
+            activeBtn.classList.add('bg-brand-600', 'text-white', 'shadow-sm');
+
+            // Re-render components or adjust structures when changing view
+            if (tabId === 'tab-team') {
+                setTimeout(updateProgressBar, 100);
+            } else if (tabId === 'tab-werkstatt') {
+                setTimeout(updateNavIndicator, 100);
+            }
+        }
+
+        // =======================================================
+        // ELEMENT 1: DYNAMIC TEAM CODE
+        // =======================================================
+        const teamData = [
+            {
+                id: 1,
+                name: "Alexander Becker",
+                role: "CEO & Co-Founder",
+                department: "leadership",
+                tag: "Leadership",
+                color: "from-amber-400 via-orange-500 to-red-600",
+                shadowColor: "shadow-orange-500/20",
+                avatarSeed: "alex",
+                bio: "Alexander hat über 15 Jahre Erfahrung im Aufbau digitaler Startups. Er leitet die strategische Ausrichtung von NextLevel und brennt leidenschaftlich für immersive Visualisierungen und künstliche Intelligenz im Web.",
+                skills: [
+                    { name: "Unternehmensführung", value: 95 },
+                    { name: "Produktstrategie", value: 90 }
+                ],
+                location: "Berlin, DE"
+            },
+            {
+                id: 2,
+                name: "Sarah Lindner",
+                role: "Creative Director",
+                department: "design",
+                tag: "Creative / Design",
+                color: "from-pink-500 via-rose-500 to-indigo-600",
+                shadowColor: "shadow-pink-500/20",
+                avatarSeed: "sarah",
+                bio: "Sarah ist das kreative Herzstück unseres Teams. Sie formt die visuellen Identitäten weltbekannter Marken und sorgt dafür, dass jedes NextLevel-Projekt nicht nur funktional, sondern ein echtes Design-Meisterwerk wird.",
+                skills: [
+                    { name: "Brand Identity", value: 98 },
+                    { name: "UI/UX Design Concepting", value: 92 }
+                ],
+                location: "München, DE"
+            },
+            {
+                id: 3,
+                name: "Elena Rostova",
+                role: "Lead Frontend Developer",
+                department: "dev",
+                tag: "Development",
+                color: "from-cyan-400 via-teal-500 to-emerald-600",
+                shadowColor: "shadow-cyan-500/20",
+                avatarSeed: "elena",
+                bio: "Elena übersetzt visionäre Designs in pixelgenauen, butterweichen Code. Als Pionierin für WebGL und modernste Animationstechniken liebt sie komplexe Interaktionen und immersive Micro-Interactions.",
+                skills: [
+                    { name: "React / Next.js / Vue", value: 96 },
+                    { name: "Three.js / Animations", value: 90 }
+                ],
+                location: "Hamburg, DE"
+            },
+            {
+                id: 4,
+                name: "Maximilian Kroll",
+                role: "Senior UI/UX Designer",
+                department: "design",
+                tag: "Creative / Design",
+                color: "from-violet-500 via-purple-600 to-fuchsia-700",
+                shadowColor: "shadow-violet-500/20",
+                avatarSeed: "max",
+                bio: "Maximilian verwandelt komplexe Nutzerpfade in verblüffend einfache Interfaces. Er entwirft mit absolutem Fokus auf Zugänglichkeit, Storytelling und visuelle Harmonie.",
+                skills: [
+                    { name: "Figma Workflows", value: 95 },
+                    { name: "Motion Prototyping", value: 85 }
+                ],
+                location: "Köln, DE"
+            },
+            {
+                id: 5,
+                name: "Dr. Julian Wagner",
+                role: "AI Developer / Researcher",
+                department: "dev",
+                tag: "Development",
+                color: "from-blue-500 via-indigo-600 to-violet-700",
+                shadowColor: "shadow-blue-500/20",
+                avatarSeed: "julian",
+                bio: "Julian schlägt die Brücke zwischen modernster Künstlicher Intelligenz und dem Browser. Er implementiert schlaue KI-Modelle direkt in unsere Applikationen, um personalisierte Erlebnisse in Echtzeit zu bieten.",
+                skills: [
+                    { name: "Machine Learning", value: 93 },
+                    { name: "Neural Networks", value: 87 }
+                ],
+                location: "Frankfurt, DE"
+            },
+            {
+                id: 6,
+                name: "Nadine Meier",
+                role: "Head of Operations",
+                department: "leadership",
+                tag: "Leadership",
+                color: "from-yellow-400 via-amber-500 to-orange-600",
+                shadowColor: "shadow-yellow-500/20",
+                avatarSeed: "nadine",
+                bio: "Nadine sorgt dafür, dass unsere Zahnräder nahtlos ineinandergreifen. Sie hält Deadlines im Auge, optimiert unsere täglichen agilen Workflows und pflegt die unbeschreiblich positive Teamkultur.",
+                skills: [
+                    { name: "Agile Project Mgmt", value: 95 },
+                    { name: "Team Leadership", value: 92 }
+                ],
+                location: "Zürich, CH"
+            },
+            {
+                id: 7,
+                name: "Viktor Vancov",
+                role: "Fullstack Architect",
+                department: "dev",
+                tag: "Development",
+                color: "from-emerald-400 via-teal-600 to-indigo-700",
+                shadowColor: "shadow-emerald-500/20",
+                avatarSeed: "viktor",
+                bio: "Viktor bändigt gigantische Datenmengen im Backend und konzipiert ausfallsichere Cloud-Infrastrukturen. In seiner Freizeit experimentiert er gerne mit dezentralen Webtechnologien und Edge-Funktionen.",
+                skills: [
+                    { name: "Cloud Tech (AWS, Vercel)", value: 91 },
+                    { name: "Node.js & DB", value: 94 }
+                ],
+                location: "Wien, AT"
+            },
+            {
+                id: 8,
+                name: "Sophia Altmann",
+                role: "Marketing & Growth",
+                department: "leadership",
+                tag: "Leadership",
+                color: "from-red-400 via-pink-500 to-violet-600",
+                shadowColor: "shadow-pink-500/20",
+                avatarSeed: "sophia",
+                bio: "Sophia sorgt dafür, dass unsere revolutionären digitalen Produkte die Aufmerksamkeit bekommen, die sie verdienen. Sie konzipiert hocheffektive SEO-, Content- und Growth-Hacking-Kampagnen.",
+                skills: [
+                    { name: "Growth Strategy", value: 94 },
+                    { name: "Analytics & Tracking", value: 88 }
+                ],
+                location: "Stuttgart, DE"
+            }
+        ];
+
+        function getAvatarSvg(seed) {
+            const gradients = {
+                "alex": { start: "#fbbf24", end: "#dc2626" },
+                "sarah": { start: "#ec4899", end: "#4f46e5" },
+                "elena": { start: "#22d3ee", end: "#059669" },
+                "max": { start: "#8b5cf6", end: "#d946ef" },
+                "julian": { start: "#3b82f6", end: "#6d28d9" },
+                "nadine": { start: "#facc15", end: "#ea580c" },
+                "viktor": { start: "#34d399", end: "#4338ca" },
+                "sophia": { start: "#f87171", end: "#7c3aed" }
+            };
+            const grad = gradients[seed] || { start: "#6366f1", end: "#a855f7" };
+            return `
+            <svg viewBox="0 0 100 100" class="w-full h-full object-cover select-none pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="grad-${seed}" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="${grad.start}" />
+                        <stop offset="100%" stop-color="${grad.end}" />
+                    </linearGradient>
+                    <clipPath id="circleClip">
+                        <circle cx="50" cy="50" r="46" />
+                    </clipPath>
+                </defs>
+                <circle cx="50" cy="50" r="48" fill="url(#grad-${seed})" />
+                <g clip-path="url(#circleClip)">
+                    <circle cx="50" cy="115" r="45" fill="#ffffff" opacity="0.15" />
+                    <circle cx="50" cy="115" r="38" fill="#ffffff" opacity="0.2" />
+                    <ellipse cx="50" cy="48" rx="20" ry="24" fill="#ffffff" opacity="0.1" />
+                    <rect x="36" y="44" width="28" height="6" rx="3" fill="#ffffff" opacity="0.25" />
+                    <circle cx="42" cy="47" r="8" fill="none" stroke="#ffffff" stroke-width="2.5" opacity="0.4" />
+                    <circle cx="58" cy="47" r="8" fill="none" stroke="#ffffff" stroke-width="2.5" opacity="0.4" />
+                    <line x1="50" y1="5" x2="50" y2="95" stroke="#ffffff" stroke-dasharray="2 3" opacity="0.1" />
+                    <text x="50" y="82" font-family="'Inter', sans-serif" font-weight="900" font-size="11" fill="#ffffff" text-anchor="middle" letter-spacing="1.5" opacity="0.8">
+                        ${seed.toUpperCase()}
+                    </text>
+                </g>
+                <circle cx="50" cy="50" r="47.5" fill="none" stroke="#ffffff" stroke-width="1.5" opacity="0.3" />
+            </svg>
+            `;
+        }
+
+        const teamTrack = document.getElementById("teamTrack");
+        const viewportContainer = document.getElementById("viewportContainer");
+        const scrollProgressBar = document.getElementById("scrollProgressBar");
+        const slidePrevBtn = document.getElementById("slidePrevBtn");
+        const slideNextBtn = document.getElementById("slideNextBtn");
+        const detailModal = document.getElementById("detailModal");
+        const modalContent = document.getElementById("modalContent");
+        const filterBtns = document.querySelectorAll(".filter-btn");
+
+        let activeFilter = "all";
+        let targetX = 0;
+        let currentX = 0;
+        let isMouseDown = false;
+        let startX, scrollLeft;
+        const lerpFactor = 0.085;
+
+        function renderTeam(filter = "all") {
+            teamTrack.innerHTML = "";
+            const filteredData = teamData.filter(member => filter === "all" || member.department === filter);
+            
+            filteredData.forEach((member) => {
+                const card = document.createElement("div");
+                card.className = `group relative w-64 md:w-72 h-[380px] rounded-2xl overflow-hidden bg-white border border-slate-100 hover:border-slate-200 flex-shrink-0 flex flex-col justify-between p-5 cursor-pointer shadow-md hover:${member.shadowColor} transition-all duration-500 ease-out transform hover:-translate-y-1 select-none`;
+                
+                card.innerHTML = `
+                    <div class="absolute -top-16 -left-16 w-36 h-36 rounded-full bg-gradient-to-tr ${member.color} opacity-10 blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
+                    
+                    <div class="flex justify-between items-center relative z-10">
+                        <span class="text-[9px] font-extrabold tracking-wider uppercase px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-500">${member.tag}</span>
+                        <div class="w-7 h-7 rounded-full bg-white border border-slate-200 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-brand-500"></i>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col items-center justify-center relative z-10 py-3">
+                        <div class="w-28 h-28 rounded-2xl p-0.5 bg-gradient-to-tr ${member.color} shadow-md">
+                            <div class="w-full h-full bg-white rounded-[14px] overflow-hidden flex items-center justify-center">
+                                ${getAvatarSvg(member.avatarSeed)}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative z-10 bg-slate-50 border border-slate-100 p-3 rounded-xl">
+                        <h2 class="text-base font-bold text-slate-900 group-hover:text-brand-600 transition-colors">${member.name}</h2>
+                        <p class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mt-0.5">${member.role}</p>
+                    </div>
+                `;
+
+                card.addEventListener("click", () => showDetails(member));
+                teamTrack.appendChild(card);
+            });
+
+            document.getElementById("cardCount").innerText = `${filteredData.length} Köpfe geladen`;
+            targetX = 0;
+            currentX = 0;
+            teamTrack.style.transform = `translateX(0px)`;
+            updateProgressBar();
+        }
+
+        function showDetails(member) {
+            document.getElementById("modalName").innerText = member.name;
+            document.getElementById("modalRole").innerText = member.role;
+            document.getElementById("modalDeptTag").innerText = member.tag;
+            document.getElementById("modalBio").innerText = member.bio;
+            document.getElementById("modalLocation").innerText = member.location;
+
+            const avatarBox = document.getElementById("modalAvatarBox");
+            avatarBox.className = `relative w-28 h-28 rounded-2xl overflow-hidden shadow-lg p-0.5 bg-gradient-to-tr ${member.color}`;
+            avatarBox.innerHTML = `
+                <div class="w-full h-full bg-white rounded-[12px] overflow-hidden">
+                    ${getAvatarSvg(member.avatarSeed)}
+                </div>
+            `;
+
+            const glow = document.getElementById("modalBgGlow");
+            glow.className = `absolute inset-0 -z-10 opacity-30 blur-2xl bg-gradient-to-tr ${member.color}`;
+
+            const skillsContainer = document.getElementById("modalSkills");
+            skillsContainer.innerHTML = member.skills.map(skill => `
+                <div>
+                    <div class="flex justify-between text-[10px] font-semibold mb-0.5">
+                        <span class="text-slate-600">${skill.name}</span>
+                        <span class="text-brand-600">${skill.value}%</span>
+                    </div>
+                    <div class="w-full h-1 bg-slate-100 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r ${member.color} rounded-full" style="width: ${skill.value}%"></div>
+                    </div>
+                </div>
+            `).join('');
+
+            const socials = document.getElementById("modalSocials");
+            socials.innerHTML = `
+                <a href="#" class="w-7 h-7 rounded-lg bg-slate-50 border border-slate-200 hover:bg-brand-500 hover:text-white transition-all flex items-center justify-center text-[10px] text-slate-600"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="#" class="w-7 h-7 rounded-lg bg-slate-50 border border-slate-200 hover:bg-brand-500 hover:text-white transition-all flex items-center justify-center text-[10px] text-slate-600"><i class="fa-brands fa-github"></i></a>
+            `;
+
+            detailModal.classList.remove("opacity-0", "pointer-events-none");
+            modalContent.classList.remove("scale-95", "opacity-0");
+        }
+
+        function closeModal() {
+            detailModal.classList.add("opacity-0", "pointer-events-none");
+            modalContent.classList.add("scale-95", "opacity-0");
+        }
+
+        document.getElementById("closeModalBtn").addEventListener("click", closeModal);
+        detailModal.addEventListener("click", (e) => {
+            if (e.target === detailModal) closeModal();
+        });
+
+        function getMaxScroll() {
+            return teamTrack.scrollWidth - viewportContainer.clientWidth;
+        }
+
+        function updateProgressBar() {
+            const max = getMaxScroll();
+            if (max <= 0) {
+                scrollProgressBar.style.width = "100%";
+                return;
+            }
+            const ratio = Math.max(0, Math.min(1, Math.abs(currentX) / max));
+            scrollProgressBar.style.width = `${ratio * 100}%`;
+        }
+
+        // Mouse Drift Tracking
+        window.addEventListener("mousemove", (e) => {
+            // Check if team tab is currently visible
+            if (document.getElementById("tab-team").classList.contains("hidden") || isMouseDown || window.innerWidth < 768) return;
+
+            const width = window.innerWidth;
+            const x = e.clientX;
+            const pct = x / width;
+            const maxScroll = getMaxScroll();
+            if (maxScroll <= 0) return;
+
+            let calculatedTarget = pct * maxScroll * 1.2 - (maxScroll * 0.1);
+            if (calculatedTarget < 0) calculatedTarget = 0;
+            if (calculatedTarget > maxScroll) calculatedTarget = maxScroll;
+
+            targetX = -calculatedTarget;
+        });
+
+        slideNextBtn.addEventListener("click", () => {
+            const step = 280;
+            const maxScroll = getMaxScroll();
+            let val = Math.abs(targetX) + step;
+            if (val > maxScroll) val = maxScroll;
+            targetX = -val;
+        });
+
+        slidePrevBtn.addEventListener("click", () => {
+            const step = 280;
+            let val = Math.abs(targetX) - step;
+            if (val < 0) val = 0;
+            targetX = -val;
+        });
+
+        // Drag/Swipe Support
+        viewportContainer.addEventListener("mousedown", (e) => {
+            isMouseDown = true;
+            viewportContainer.classList.add("cursor-grabbing");
+            startX = e.pageX - teamTrack.offsetLeft;
+            scrollLeft = currentX;
+        });
+
+        window.addEventListener("mouseup", () => {
+            isMouseDown = false;
+            viewportContainer.classList.remove("cursor-grabbing");
+        });
+
+        viewportContainer.addEventListener("mousemove", (e) => {
+            if (!isMouseDown) return;
+            e.preventDefault();
+            const x = e.pageX - teamTrack.offsetLeft;
+            const walk = (x - startX) * 1.5;
+            const maxScroll = getMaxScroll();
+            let val = scrollLeft + walk;
+            if (val > 0) val = 0;
+            if (val < -maxScroll) val = -maxScroll;
+            targetX = val;
+        });
+
+        function animateTeam() {
+            currentX += (targetX - currentX) * lerpFactor;
+            teamTrack.style.transform = `translateX(${currentX}px)`;
+            updateProgressBar();
+            requestAnimationFrame(animateTeam);
+        }
+
+        // Filters handler
+        filterBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                filterBtns.forEach(b => {
+                    b.classList.remove("active", "bg-brand-600", "text-white");
+                    b.classList.add("text-slate-600");
+                });
+                btn.classList.add("active", "bg-brand-600", "text-white");
+                btn.classList.remove("text-slate-600");
+                activeFilter = btn.dataset.filter;
+                renderTeam(activeFilter);
+            });
+        });
+
+
+        // =======================================================
+        // ELEMENT 2: WERKSTATT MENU LOGIC (Pill Menu and Glow only)
+        // =======================================================
+        const light = document.getElementById('ambient-light');
+        document.addEventListener('mousemove', (e) => {
+            // Only update if Werkstatt Sandbox tab is visible
+            if (document.getElementById("tab-werkstatt").classList.contains("hidden")) return;
+            
+            const rect = document.getElementById("tab-werkstatt").getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            light.style.setProperty('--x', `${x}px`);
+            light.style.setProperty('--y', `${y}px`);
+        });
+
+        function updateNavIndicator() {
+            const activeBtn = document.querySelector('#tab-werkstatt .nav-item[data-active="true"]');
+            const indicator = document.getElementById('nav-indicator');
+            
+            if (activeBtn && indicator) {
+                const btnRect = activeBtn.getBoundingClientRect();
+                const containerRect = activeBtn.closest('nav').getBoundingClientRect();
+                
+                const leftPos = btnRect.left - containerRect.left;
+                
+                indicator.style.width = `${btnRect.width}px`;
+                indicator.style.left = `${leftPos}px`;
+            }
+        }
+
+        function setActiveNav(button) {
+            const navItems = document.querySelectorAll('#tab-werkstatt .nav-item');
+            navItems.forEach(item => {
+                item.setAttribute('data-active', 'false');
+                item.classList.remove('text-white');
+                item.classList.add('text-slate-600');
+            });
+
+            button.setAttribute('data-active', 'true');
+            button.classList.remove('text-slate-600');
+            button.classList.add('text-white');
+
+            updateNavIndicator();
+        }
+
+        window.addEventListener('resize', () => {
+            if (!document.getElementById("tab-werkstatt").classList.contains("hidden")) {
+                updateNavIndicator();
+            }
+        });
+
+
+        // =======================================================
+        // APP ENTRY POINT
+        // =======================================================
+        window.onload = function() {
+            renderTeam("all");
+            animateTeam();
+            setTimeout(updateNavIndicator, 150);
+        };
+    </script>
+</body>
+</html>
